@@ -50,6 +50,10 @@ class HomeScreen extends StatelessWidget {
 
   ListView webtoonsListViewBuilder(AsyncSnapshot<List<WebtoonModel>> snapshot) {
     return ListView.separated(
+      padding: EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 20,
+      ),
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length,
       itemBuilder: (context, index) {
@@ -57,10 +61,33 @@ class HomeScreen extends StatelessWidget {
         var webtoon = snapshot.data![index];
         return Column(
           children: [
-            Image.network(
-              webtoon.thumb,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 15,
+                    offset: const Offset(10, 10),
+                    color: Colors.black.withOpacity(0.5),
+                  )
+                ],
+              ),
+              clipBehavior: Clip.hardEdge,
+              width: 250,
+              child: Image.network(
+                webtoon.thumb,
+              ),
             ),
-            Text(webtoon.title),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              webtoon.title,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         );
       },
