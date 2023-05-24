@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:toonflix/widgets/webtoon_widget.dart';
 
 import '../models/webtoon_model.dart';
 
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
           if (snapshot.hasData) {
             return Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Expanded(
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
             );
           }
 
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
 
   ListView webtoonsListViewBuilder(AsyncSnapshot<List<WebtoonModel>> snapshot) {
     return ListView.separated(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 10,
         horizontal: 20,
       ),
@@ -59,36 +60,10 @@ class HomeScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         print(index);
         var webtoon = snapshot.data![index];
-        return Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 10),
-                    color: Colors.black.withOpacity(0.5),
-                  )
-                ],
-              ),
-              clipBehavior: Clip.hardEdge,
-              width: 250,
-              child: Image.network(
-                webtoon.thumb,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              webtoon.title,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+        return Webtoon(
+          title: webtoon.title,
+          thumb: webtoon.thumb,
+          id: webtoon.id,
         );
       },
       separatorBuilder: (BuildContext context, int index) =>
