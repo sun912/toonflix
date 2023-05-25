@@ -58,7 +58,6 @@ class HomeScreen extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length,
       itemBuilder: (context, index) {
-        print(index);
         var webtoon = snapshot.data![index];
         return Webtoon(
           title: webtoon.title,
